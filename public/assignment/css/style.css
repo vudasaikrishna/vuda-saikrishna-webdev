@@ -5,17 +5,40 @@ input, textarea {
 body {
     padding-top: 60px;
     padding-bottom: 60px;
-    /*overflow: hidden;*/
+    overflow-x: hidden;
 }
 
 .vsk-para {
     margin-top: 20px;
 }
 
+a:hover {
+    /*Overriding the default underline*/
+    text-decoration: none;
+    /*color: darkred;*/
+}
+
+.vsk-page-navbar {
+    background-color: lavender;
+}
+
+.vsk-page-navbar .navbar-brand {
+    color: black;
+}
+
+.vsk-page-navbar .navbar-text {
+    color: black;
+}
+
 .navbar-default {
     background-color: #337ab7;
-    border-bottom-color: #337ab7;
+    /*border-bottom-color: #337ab7;*/
+    /*background-color: #ce1139;*/
 }
+
+/*a {
+    color: #ce1139;
+}*/
 
 .navbar-default .navbar-brand {
     color: white;
@@ -23,6 +46,10 @@ body {
 
 .navbar-default .navbar-text {
     color: white;
+}
+
+.vsk-glyphicon-page {
+    color: #337ab7;
 }
 
 .vsk-glyphicon{

@@ -13,3 +13,5 @@ require ("./test/app.js")(app);
 var port = process.env.PORT || 3000;
 
 app.listen(port);
+
+console.log('Server running at http://localhost:3000')

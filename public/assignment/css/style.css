@@ -6,6 +6,7 @@ body {
     padding-top: 60px;
     padding-bottom: 60px;
     overflow-x: hidden;
+    height: 100%;
 }
 
 .vsk-para {
@@ -17,9 +18,15 @@ a:hover {
     text-decoration: none;
     /*color: darkred;*/
 }
+.vsk-col {
+    padding-right: 20px;
+    border-right-style: solid;
+    border-right-width: thin;
+    border-right-color: gray;
+}
 
 .vsk-page-navbar {
-    background-color: lavender;
+    background-color: whitesmoke;
 }
 
 .vsk-page-navbar .navbar-brand {
@@ -69,16 +76,20 @@ a:hover {
 
 .vsk-left-pane {
     position: absolute;
+    width: 100%;
+    height:100%;
     top: 0px;
     bottom: 0px;
     margin-top: 50px;
     margin-bottom: 50px;
     padding-top: 15px;
     overflow: auto;
-    background-color: #363b3e;
+    /*background-color: #363b3e;*/
 }
 .vsk-right-pane {
     position: absolute;
+    width: 100%;
+    height:100%;
     top: 0px;
     right: 0px;
     bottom: 0px;

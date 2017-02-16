@@ -21,7 +21,7 @@
         function addWidget(widgetType) {
             var widget = {};
             widget.widgetType = widgetType;
-            console.log('Adding Widget'+widgetType);
+            //console.log('Adding Widget'+widgetType);
             var id = WidgetService.createWidget(vm.pageId, widget)._id;
             $location.url('/user/'+vm.userId+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/'+id);
         }

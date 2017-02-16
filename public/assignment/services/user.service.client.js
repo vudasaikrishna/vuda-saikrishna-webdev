@@ -41,7 +41,8 @@
         }
 
         function createUser(user) {
-            user._id = ++count;
+            ++count;
+            user._id = count.toString();
             users.push(user);
             return user;
         }

@@ -21,13 +21,13 @@
 
         // add method
         function addWebsite(website) {
-            console.log(website);
+            //console.log(website);
             if (website == null || website.name == null){
                 vm.error="Website Name required";
                 return;
             }
-            var success = WebsiteService.createWebsite(vm.userId, website);
-            if (success) {
+            var site = WebsiteService.createWebsite(vm.userId, website);
+            if (site) {
                 vm.message = "Website Added Successfully";
                 init();
             } else{

@@ -36,23 +36,27 @@
         }
         
         function updateWidget(widgetId, widget) {
+            //console.log(widget);
             for(w in widgets){
                 if (widgets[w]._id == widgetId) {
+                    //console.log(widget.width);
                     widgets[w].name = widget.name;
                     widgets[w].size = widget.size;
                     widgets[w].text = widget.text;
-                    widgets[w].width = widget.width;
+                    if (widget.width)
+                        widgets[w].width = widget.width+"%";
                     widgets[w].url = widget.url;
-                    return widgets[w];
+                    //console.log(widget);
+                    return angular.copy(widgets[w]);
                 }
             }
             return null;
         }
 
         function findWidgetById(wgid) {
-            for(var p in widgets){
-                if(widgets[p]._id == wgid)
-                    return widgets[p];
+            for(var w in widgets){
+                if(widgets[w]._id == wgid)
+                    return angular.copy(widgets[w]);
             }
             return null;
         }
@@ -67,7 +71,8 @@
         }
 
         function createWidget(pageId, widget) {
-            widget._id = ++count;
+            ++count;
+            widget._id = count.toString();
             widget.pageId = pageId;
             widgets.push(widget);
             return widget;

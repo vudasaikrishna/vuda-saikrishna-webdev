@@ -16,6 +16,15 @@
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
 
             vm.widget = WidgetService.findWidgetById(vm.wgId);
+            //console.log("Controller");
+            // console.log(vm.widget);
+
+            // convert width percent string to number for display
+            if (vm.widget.width){
+                // console.log(vm.widget.width);
+                vm.widget.width = parseInt(vm.widget.width.substring(-1)); // trim the percent symbol
+                // console.log(vm.widget.width);
+            }
         }
         init();
 

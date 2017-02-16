@@ -22,7 +22,7 @@
         
         function deleteWebsite(websiteId) {
             for(var w in websites) {
-                if(websiteId === websites[w]._id) {
+                if(websiteId == websites[w]._id) {
                     websites.splice(w,1);
                     return true;
                 }
@@ -32,28 +32,31 @@
         
         function updateWebsite(websiteId, website) {
             for(var w in websites) {
-                if(websiteId === websites[w]._id) {
+                if(websiteId == websites[w]._id) {
                     websites[w].name = website.name;
                     websites[w].update = new Date();
                     websites[w].description = website.description;
-                    return websites[w];
+                    return angular.copy(websites[w]);
                 }
             }
             return null;
         }
         
         function createWebsite(userId, website) {
-            website._id = ++count;
+            ++count;
+            website._id = count.toString();
             website.developerId = userId;
             website.update = new Date();
             websites.push(website);
-            console.log(website);
+            //console.log(website);
             return website;
         }
 
         function findWebsiteById(websiteId) {
+            //console.log(websiteId);
             for(var w in websites) {
-                if(websiteId === websites[w]._id) {
+                if(websiteId == websites[w]._id) {
+                    //console.log(websites[w]);
                     return angular.copy(websites[w]);
                 }
             }
@@ -63,7 +66,7 @@
         function findWebsitesByUser(userId) {
             var sites = [];
             for(var w in websites) {
-                if(userId === websites[w].developerId) {
+                if(userId == websites[w].developerId) {
                     sites.push(websites[w]);
                 }
             }

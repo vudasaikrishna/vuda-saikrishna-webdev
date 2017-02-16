@@ -23,7 +23,7 @@
         
         function deletePage(pageId) {
             for(var p in pages) {
-                if(pageId === pages[p]._id) {
+                if(pageId == pages[p]._id) {
                     pages.splice(p,1);
                     return true;
                 }
@@ -32,7 +32,7 @@
         }
         function updatePage(pageId, page) {
             for(var p in pages) {
-                if(pageId === pages[p]._id) {
+                if(pageId == pages[p]._id) {
                     pages[p].name = page.name;
                     pages[p].description = page.description;
                     pages[p].updated = new Date();
@@ -42,7 +42,8 @@
             return false;
         }
         function createPage(websiteId, page) {
-            page._id = ++count;
+            count++;
+            page._id = count.toString();
             page.websiteId = websiteId;
             pages.push(page);
             return page;
@@ -50,7 +51,7 @@
 
         function findPageById(pageId) {
             for(var p in pages) {
-                if(pageId === pages[p]._id) {
+                if(pageId == pages[p]._id) {
                     return angular.copy(pages[p]);
                 }
             }
@@ -60,7 +61,7 @@
         function findPageByWebsiteId(websiteId) {
             var pgs = [];
             for(var p in pages) {
-                if(websiteId === pages[p].websiteId) {
+                if(websiteId == pages[p].websiteId) {
                     pgs.push(pages[p]);
                 }
             }

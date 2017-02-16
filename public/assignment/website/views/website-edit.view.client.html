@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!--<link href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <link href="../css/style.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>New Website</title>
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid">
         <div class="col-sm-4 hidden-xs">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-text pull-left">
-                <a href="website-list.html">
+                <a href="website-list.view.client.html">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
@@ -23,21 +11,21 @@
                 <a class="navbar-brand" href="#">Websites</a>
             </div>
             <div class="navbar-text pull-right">
-                <a href="website-new.html"><span class="glyphicon glyphicon-plus"></span>
+                <a href="website-new.view.client.html"><span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="navbar-text pull-left visible-xs">
-                <a href="website-list.html">
+                <a href="website-list.view.client.html">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
             <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#">New Website</a>
+                <a class="navbar-brand" href="#">Edit Website</a>
             </div>
             <div class="navbar-text pull-right">
-                <a href="website-list.html"><span class="glyphicon glyphicon-ok"></span>
+                <a href="website-list.view.client.html"><span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
         </div>
@@ -52,44 +40,44 @@
                 <b>Name</b>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Blogging App</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Blogging App</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Address Book App</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Address Book App</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Note Book App</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Note Book App</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Text Book App</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Text Book App</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Face Book App</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Face Book App</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Script Testing App</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Script Testing App</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="../page/page-list.html">Blogger</a>
-                <a href="website-edit.html">
+                <a href="../views/page/page-list.view.client.html">Blogger</a>
+                <a href="website-edit.view.client.html">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
@@ -97,13 +85,17 @@
     </div>
     <div class="col-sm-8">
 
-        <label for="name">Name</label>
-        <input id="name" class="form-control" placeholder="Website Name">
-        <label for="description">Description</label>
+        <label for="name">Website Name</label>
+        <input id="name"
+               class="form-control"
+               value="Cras justo odio"
+               placeholder="Website Name">
+        <label for="description">Website Description</label>
         <textarea id="description"
                   class="form-control"
                   rows="6"
-                  placeholder="Description"></textarea>
+                  placeholder="Description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend sit amet leo sit amet accumsan. Aliquam faucibus justo vitae dolor fermentum, a viverra augue vestibulum. Sed pellentesque pretium hendrerit. Proin facilisis sodales lacus. Aliquam sollicitudin cursus nibh, ac fringilla diam dignissim eget. Sed quis malesuada dui, quis malesuada ex. Mauris finibus odio ac magna gravida tincidunt id sit amet nisl. Fusce eu orci vitae massa luctus mollis semper ut ipsum. Mauris ullamcorper dolor eu ante vulputate efficitur. Nunc ligula sapien, pulvinar ac nunc et, vestibulum consectetur leo. Nunc erat lectus, consectetur vitae erat vitae, auctor maximus nibh.</textarea>
+        <a href="website-list.view.client.html" class="btn btn-danger btn-block">Delete</a>
     </div>
 </div>
 
@@ -112,9 +104,7 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header pull-right">
-            <a class="navbar-brand" href="../user/profile.html"><span class="glyphicon glyphicon-user"> </span></a>
+            <a class="navbar-brand" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-user"> </span></a>
         </div>
     </div>
 </nav>
-</body>
-</html>

@@ -46,6 +46,7 @@
                     if (widget.width)
                         widgets[w].width = widget.width+"%";
                     widgets[w].url = widget.url;
+                    widgets[w].editing = false;
                     //console.log(widget);
                     return angular.copy(widgets[w]);
                 }
@@ -64,7 +65,7 @@
         function findWidgetsByPageId(pageId) {
             var wdgs = [];
             for(w in widgets){
-                if (widgets[w].pageId == pageId)
+                if (widgets[w].pageId == pageId && !widgets[w].editing)
                     wdgs.push(widgets[w]);
             }
             return wdgs;

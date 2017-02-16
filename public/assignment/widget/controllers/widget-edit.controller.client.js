@@ -50,8 +50,16 @@
         }
 
         function updateWidget(){
+            if(vm.widget.widgetType == 'HEADER' && (!vm.widget.text || !vm.widget.size)){
+                    vm.error = "Text or Size cannot be empty";
+                    return;
+            } else if((vm.widget.widgetType == 'IMAGE' || vm.widget.widgetType == 'YOUTUBE') && !vm.widget.url){
+                vm.error = "URL cannot be empty";
+                return;
+            }
             var success = WidgetService.updateWidget(vm.wgId, vm.widget);
             if (success){
+                vm.error=null;
                 vm.message = "Updated Successfully";
             } else{
                 vm.error = "Unable to update the widget";

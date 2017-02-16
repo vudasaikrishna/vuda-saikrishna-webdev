@@ -1,33 +1,46 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .controller("LoginController", loginController);
+        .controller("RegisterController", RegisterController);
     
-    function loginController($location, UserService) {
+    function RegisterController($location, UserService) {
         var vm = this;
 
         // event handlers
-        vm.login = login;
+        vm.register = register;
 
         function init() {
         }
         init();
 
-        function login(user) {
+        function register(user) {
             if(user==null) {
-                vm.error = "Username required"
+                vm.error = "Username required";
                 return;
             }
             if(user.password == null){
-                vm.error = "Password cannot be empty"
+                vm.error = "Password cannot be empty";
                 return;
             }
-            var user = UserService
-                .findUserByCredentials(user.username, user.password);
-            if(user) {
-                $location.url("/user/"+user._id);
+            if(user.password != user.password2){
+                vm.error = "Passwords do not match";
+                return;
+            }
+
+            var u = UserService
+                .findUserByUsername(user.username);
+            if(u) {
+                vm.error = "Username already taken";
+
             } else {
-                vm.error = "User not found";
+                u = UserService.createUser(user);
+                if (u){
+                    vm.message = "Registered Successfully";
+                    $location.url("/user/"+user._id);
+                } else{
+                    vm.error = "Unable to Register";
+                }
+
             }
         }
     }

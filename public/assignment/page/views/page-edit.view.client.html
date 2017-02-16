@@ -3,29 +3,29 @@
         <div class="col-sm-4 hidden-xs">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-text pull-left">
-                <a href="page-list.view.client.html">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
                     <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span>
                 </a>
             </div>
             <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#">Pages</a>
+                <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">Pages</a>
             </div>
             <div class="navbar-text pull-right">
-                <a href="page-new.view.client.html"><span class="glyphicon glyphicon-plus vsk-glyphicon"></span>
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new"><span class="glyphicon glyphicon-plus vsk-glyphicon"></span>
                 </a>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="navbar-text pull-left visible-xs">
-                <a href="page-list.view.client.html">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
                     <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span>
                 </a>
             </div>
             <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#">Edit page</a>
+                <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}">Edit page</a>
             </div>
             <div class="navbar-text pull-right">
-                <a href="page-list.view.client.html"><span class="glyphicon glyphicon-ok vsk-glyphicon"></span>
+                <a ng-click="model.updatePage(model.page)"><span class="glyphicon glyphicon-ok vsk-glyphicon"></span>
                 </a>
             </div>
         </div>
@@ -39,33 +39,11 @@
                 <!--Header Row-->
                 <b>Name</b>
             </li>
-            <li class="list-group-item">
-                <a href="../widget/widget-list.view.client.html"> Blog Post</a>
-                <a href="page-edit.view.client.html">
-                    <span class = "glyphicon glyphicon-cog pull-right"></span>
+            <li ng-repeat="page in model.pages" class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                    {{page.name}}
                 </a>
-            </li>
-            <li class="list-group-item">
-                <a href="../widget/widget-list.view.client.html"> Blogs</a>
-                <a href="page-edit.view.client.html">
-                    <span class = "glyphicon glyphicon-cog pull-right"></span>
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="../widget/widget-list.view.client.html"> Home</a>
-                <a href="page-edit.view.client.html">
-                    <span class = "glyphicon glyphicon-cog pull-right"></span>
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="../widget/widget-list.view.client.html"> About</a>
-                <a href="page-edit.view.client.html">
-                    <span class = "glyphicon glyphicon-cog pull-right"></span>
-                </a>
-            </li>
-            <li class="list-group-item">
-                <a href="../widget/widget-list.view.client.html"> Contact Us</a>
-                <a href="page-edit.view.client.html">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
                     <span class = "glyphicon glyphicon-cog pull-right"></span>
                 </a>
             </li>
@@ -73,17 +51,26 @@
     </div>
     <div class="col-sm-8">
 
+        <div ng-show="model.message" class="alert alert-success" role="alert">
+            {{model.message}}
+        </div>
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+
         <label for="name">page Name</label>
-        <input id="name"
+        <input ng-model="model.page.name"
+               id="name"
                class="form-control"
                value="Blog Post"
                placeholder="page Name">
         <label for="title">Page Title</label>
-        <input id="title"
+        <input ng-model="model.page.description"
+               id="title"
                class="form-control"
                value="Page with Blog Posts"
                placeholder="Page Title">
-        <a href="page-list.view.client.html" class="btn btn-danger btn-block">Delete</a>
+        <a ng-click="model.deletePage()" class="btn btn-danger btn-block">Delete</a>
     </div>
 </div>
 
@@ -92,7 +79,7 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header pull-right">
-            <a class="navbar-brand" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
         </div>
     </div>
 </nav>

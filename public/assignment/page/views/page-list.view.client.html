@@ -1,13 +1,13 @@
 <nav class="navbar vsk-page-navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="../website/website-list.view.client.html"> <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span></a>
+            <a href="#/user/{{model.userId}}/website"> <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span></a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="page-new.view.client.html"> <span class="glyphicon glyphicon-plus vsk-glyphicon"></span></a>
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new"> <span class="glyphicon glyphicon-plus vsk-glyphicon"></span></a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Pages</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">Pages</a>
         </div>
     </div>
 </nav>
@@ -44,91 +44,22 @@
             </div>
         </li>
         <!--Item 1-->
-        <li class="list-group-item">
+        <li ng-repeat="page in model.pages" class="list-group-item">
             <div class="row">
                 <div class="col-xs-6">
-                    <a href="../widget/widget-list.view.client.html">
-                        Blog Post
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                        {{page.name}}
                     </a>
                 </div>
-                <div class="col-xs-3 hidden-xs small"><em>Yesterday</em></div>
-                <div class="col-xs-2 hidden-xs small"><em>me</em></div>
+                <div class="col-xs-3 hidden-xs small"><em>{{page.updated | date}}</em></div>
+                <div class="col-xs-2 hidden-xs small"><em>{{page.developerId}}</em></div>
                 <div class="col-sm-1 col-xs-6">
-                    <a href="page-edit.view.client.html" class="pull-right">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}" class="pull-right">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </div>
             </div>
         </li>
-        <!--Item 2-->
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="../widget/widget-list.view.client.html">
-                        Blogs
-                    </a>
-                </div>
-                <div class="col-xs-3 hidden-xs small"><em>Yesterday</em></div>
-                <div class="col-xs-2 hidden-xs small"><em>someone</em></div>
-                <div class="col-sm-1 col-xs-6">
-                    <a href="page-edit.view.client.html" class="pull-right">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        <!--Item 3-->
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="../widget/widget-list.view.client.html">
-                        Home
-                    </a>
-                </div>
-                <div class="col-xs-3 hidden-xs small"><em>Today</em></div>
-                <div class="col-xs-2 hidden-xs small"><em>me</em></div>
-                <div class="col-sm-1 col-xs-6">
-                    <a href="page-edit.view.client.html" class="pull-right">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        <!--Item 4-->
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="../widget/widget-list.view.client.html">
-                        About
-                    </a>
-                </div>
-                <div class="col-xs-3 hidden-xs small"><em>Today</em></div>
-                <div class="col-xs-2 hidden-xs small"><em>someone</em></div>
-                <div class="col-sm-1 col-xs-6">
-                    <a href="page-edit.view.client.html" class="pull-right">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-            </div>
-        </li>
-        <!--Item 5-->
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="../widget/widget-list.view.client.html">
-                        Contact Us
-                    </a>
-                </div>
-                <div class="col-xs-3 hidden-xs small"><em>Today</em></div>
-                <div class="col-xs-2 hidden-xs small"><em>someone</em></div>
-                <div class="col-sm-1 col-xs-6">
-                    <a href="page-edit.view.client.html" class="pull-right">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-            </div>
-        </li>
-
     </ul>
 
 </div>
@@ -136,7 +67,7 @@
 <nav class="navbar vsk-page-navbar navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-header pull-right">
-            <a class="navbar-brand" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
         </div>
     </div>
 </nav>

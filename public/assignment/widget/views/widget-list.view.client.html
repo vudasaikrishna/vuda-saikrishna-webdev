@@ -1,111 +1,58 @@
 <nav class="navbar vsk-page-navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="../views/page/page-list.view.client.html">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
                 <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="widget-chooser.view.client.html">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">
                 <span class="glyphicon glyphicon-plus vsk-glyphicon"></span>
             </a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Widgets</a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">Widgets</a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <div>
-        <div class="vsk-toolbar">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
+    <div ng-repeat="widget in model.widgets">
+        <div ng-switch="widget.widgetType">
+            <div class="vsk-toolbar">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </div>
+            <div ng-switch-when="HEADER">
+                <h1 ng-if="widget.size == 1">{{widget.text}}</h1>
+                <h2 ng-if="widget.size == 2">{{widget.text}}</h2>
+                <h3 ng-if="widget.size == 3">{{widget.text}}</h3>
+                <h4 ng-if="widget.size == 4">{{widget.text}}</h4>
+                <h5 ng-if="widget.size == 5">{{widget.text}}</h5>
+                <h6 ng-if="widget.size == 6">{{widget.text}}</h6>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <iframe width="100%" ng-src="{{model.doYouTrustUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
-        <h1>NASA</h1>
-    </div>
-    <div>
-        <div class="vsk-toolbar">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h3>NASA Opens Media Accreditation for Next SpaceX Space Station Cargo Launch</h3>
-    </div>
-    <div>
-        <div class="vsk-toolbar">
-            <a href="widget-image.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-
-        <img width="100%" src="https://www.nasa.gov/sites/default/files/styles/ubernode_alt_horiz/public/thumbnails/image/img_0336.jpg?itok=6IDAtznD">
-    </div>
-    <div>
-        <div class="vsk-toolbar">
-            <a>
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-
-        <p class="vsk-para">The International Space Station is a convergence of science, technology and human innovation that demonstrates new technologies and makes research breakthroughs not possible on Earth. The space station has been occupied continuously since November 2000. In that time, more than 200 people and a variety of international and commercial spacecraft have visited the orbiting laboratory. The space station remains the springboard to NASA's next great leap in exploration, including future missions to an asteroid and Mars.
-            This is the tenth mission by SpaceX under NASA’s Commercial Resupply Services contract. In addition to supplies and equipment, Dragon will deliver several science investigations to the space station, including:<br>
-        <ul><li>an <a href="https://www.nasa.gov/mission_pages/station/research/experiments/1971.html">experiment</a> that will use the microgravity environment to grow stem cells that are of sufficient quality and quantity to use in the treatment of patients with stroke;</li>
-            <li>a Merck Research Labs <a href="https://www.nasa.gov/mission_pages/station/research/experiments/1972.html">investigation</a> that tests growth in microgravity of antibodies important for fighting a wide range of human diseases, including cancer; and</li>
-            <li>two Earth science payloads, NASA’s <a href="https://www.nasa.gov/feature/sage-iii-to-look-back-at-earths-atmospheric-sunscreen">Stratospheric Aerosol Gas Experiment</a> III mission and <a href="https://www.nasa.gov/mission_pages/station/research/experiments/2011.html">Lightning Imaging Sensor</a>, which will provide continuity for key climate observations and data records.</li>
-        </ul></p>    </div>
-
-    <!--Video Embed-->
-    <div>
-        <div class="vsk-toolbar">
-            <a href="widget-heading.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h3>NASA Space Shuttle - Documentary narrated by William Shatner HD 80min</h3>
-    </div>
-
-    <div>
-        <div class="vsk-toolbar">
-            <a href="widget-youtube.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/fOETScsJWpY" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!--Video Text-->
-    <div>
-
-        <div class="vsk-toolbar">
-            <a>
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-
-        <p class="vsk-para">An idea born in unsettled times becomes a feat of engineering excellence. The most complex machine ever built to bring humans to and from space and eventually construct the next stop on the road to space exploration.
-            In that time, more than 200 people and a variety of international and commercial spacecraft have visited the orbiting laboratory. The space station remains the springboard to NASA's next great leap in exploration,
-            including future missions to an asteroid and Mars.</p>
-
     </div>
 </div>
 
 <nav class="navbar vsk-page-navbar navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-triangle-right vsk-glyphicon"> </span></a>
-                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-eye-open vsk-glyphicon"> </span></a>
+                <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                    <span class="glyphicon glyphicon-triangle-right vsk-glyphicon"> </span></a>
+                <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                    <span class="glyphicon glyphicon-eye-open vsk-glyphicon"> </span></a>
         </div>
         <div class="navbar-header pull-right">
-            <a class="navbar-brand" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
+            <a class="navbar-brand" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
         </div>
     </div>
 </nav>

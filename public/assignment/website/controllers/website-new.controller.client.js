@@ -1,20 +1,38 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .controller("WebsiteEditController", WebsiteEditController);
+        .controller("WebsiteNewController", WebsiteNewController);
     
-    function WebsiteEditController($routeParams, WebsiteService) {
+    function WebsiteNewController($routeParams, WebsiteService) {
+        var vm = this;
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
-        var websites = WebsiteService.findAllWebsites(userId);
-        var vm = this;
-        vm.websites = websites;
-        vm.userId = userId;
-        vm.website = WebsiteService.findWebsiteById(websiteId);
-        console.log();
 
-        // delete method
+        function init() {
+            var websites = WebsiteService.findWebsitesByUser(userId);
 
-        // update website method
+            vm.websites = websites;
+            vm.userId = userId;
+        }
+        init();
+
+        // event handlers
+        vm.addWebsite = addWebsite;
+
+        // add method
+        function addWebsite(website) {
+            console.log(website);
+            if (website == null || website.name == null){
+                vm.error="Website Name required";
+                return;
+            }
+            var success = WebsiteService.createWebsite(vm.userId, website);
+            if (success) {
+                vm.message = "Website Added Successfully";
+                init();
+            } else{
+                vm.error = "Unable to add website";
+            }
+        }
     }
 })();

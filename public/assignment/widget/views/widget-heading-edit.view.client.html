@@ -1,46 +1,23 @@
-<nav class="navbar vsk-page-navbar navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-left">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span>
-            </a>
-        </div>
-        <div class="navbar-text pull-right">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-ok vsk-glyphicon"></span>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Widget Edit</a>
-        </div>
-    </div>
-</nav>
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="WidgetEditController">
 
     <label for="name">Name</label>
-    <input id="name"
+    <input ng-model="model.widget.name"
+           id="name"
            class="form-control"
            placeholder="Name"/>
 
     <label for="text">Text</label>
-    <input id="text"
+    <input ng-model="model.widget.text"
+           id="text"
            class="form-control"
            placeholder="Header Text"/>
 
     <label for="size">Size</label>
-    <input id="size"
+    <input ng-model="model.widget.size"
+           id="size"
            value="3"
            type="number"
            class="form-control"
            placeholder="3"/>
-
-    <a href="widget-list.view.client.html" class="btn btn-danger btn-block">Delete</a>
+    <a ng-click="model.deleteWidget(model.widget)" class="btn btn-danger btn-block">Delete</a>
 </div>
-
-<nav class="navbar vsk-page-navbar navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-header pull-right">
-            <a class="navbar-brand" href="../views/user/profile.view.client.html"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
-        </div>
-    </div>
-</nav>

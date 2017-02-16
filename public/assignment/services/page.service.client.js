@@ -1,39 +1,70 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .service("WebsiteService", WebsiteService);
+        .service("PageService", PageService);
 
-    function WebsiteService() {
-        var websites = [
-            { "_id": "123", "name": "Facebook", update: new Date(),    "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter", update: new Date(),     "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo", update: new Date(),     "developerId": "456", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", update: new Date(), "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers", update: new Date(),    "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess", update: new Date(),       "developerId": "234", "description": "Lorem" }
+    function PageService() {
+        var count = 1000;
+        var pages = [
+            { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem", "updated": new Date(), "developerId": "456" },
+            { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem", "updated": new Date(), "developerId": "456" },
+            { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem", "updated": new Date(), "developerId": "456" }
         ];
         // TODO: complete website crud functions
-        // this.createWebsite = createWebsite;
-        this.findAllWebsites = findAllWebsites;
-        this.findWebsiteById = findWebsiteById;
 
-        function findWebsiteById(websiteId) {
-            for(var w in websites) {
-                if(websiteId === websites[w]._id) {
-                    return angular.copy(websites[w]);
+        var api = {
+            findPageByWebsiteId: findPageByWebsiteId,
+            findPageById: findPageById,
+            createPage: createPage,
+            updatePage: updatePage,
+            deletePage: deletePage
+        };
+        return api;
+        
+        function deletePage(pageId) {
+            for(var p in pages) {
+                if(pageId === pages[p]._id) {
+                    pages.splice(p,1);
+                    return true;
+                }
+            }
+            return false;
+        }
+        function updatePage(pageId, page) {
+            for(var p in pages) {
+                if(pageId === pages[p]._id) {
+                    pages[p].name = page.name;
+                    pages[p].description = page.description;
+                    pages[p].updated = new Date();
+                    return true;
+                }
+            }
+            return false;
+        }
+        function createPage(websiteId, page) {
+            page._id = ++count;
+            page.websiteId = websiteId;
+            pages.push(page);
+            return page;
+        }
+
+        function findPageById(pageId) {
+            for(var p in pages) {
+                if(pageId === pages[p]._id) {
+                    return angular.copy(pages[p]);
                 }
             }
             return null;
         }
 
-        function findAllWebsites(userId) {
-            var sites = [];
-            for(var w in websites) {
-                if(userId === websites[w].developerId) {
-                    sites.push(websites[w]);
+        function findPageByWebsiteId(websiteId) {
+            var pgs = [];
+            for(var p in pages) {
+                if(websiteId === pages[p].websiteId) {
+                    pgs.push(pages[p]);
                 }
             }
-            return sites;
+            return pgs;
         }
     }
 })();

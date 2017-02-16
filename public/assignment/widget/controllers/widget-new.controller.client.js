@@ -1,23 +1,29 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .controller("WidgetListController", WidgetListController);
+        .controller("WidgetNewController", WidgetNewController);
     
-    function WidgetListController($sce, $routeParams, WidgetService) {
+    function WidgetNewController($location, $routeParams, WidgetService) {
         var vm = this;
-        vm.doYouTrustUrl = doYouTrustUrl;
-        vm.userId = $routeParams.uid;
-        vm.websiteId = $routeParams.wid;
-        vm.pageId = $routeParams.pid;
 
-        vm.widgets = WidgetService.findAllWidgets(vm.pageId);
-        
-        function doYouTrustUrl(url) {
-            var baseUrl = "https://www.youtube.com/embed/";
-            var urlParts = url.split('/');
-            var id = urlParts[urlParts.length - 1];
-            baseUrl += id;
-            return $sce.trustAsResourceUrl(baseUrl);
+        function init() {
+            vm.userId = $routeParams.uid;
+            vm.websiteId = $routeParams.wid;
+            vm.pageId = $routeParams.pid;
+
+            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+        }
+        init();
+
+        // event handlers
+        vm.addWidget = addWidget;
+
+        function addWidget(widgetType) {
+            var widget = {};
+            widget.widgetType = widgetType;
+            console.log('Adding Widget'+widgetType);
+            var id = WidgetService.createWidget(vm.pageId, widget)._id;
+            $location.url('/user/'+vm.userId+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/'+id);
         }
     }
 })();

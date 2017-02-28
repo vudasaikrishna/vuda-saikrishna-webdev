@@ -3,15 +3,18 @@
         .module("WebAppMaker")
         .controller("WebsiteNewController", WebsiteNewController);
     
-    function WebsiteNewController($routeParams, WebsiteService) {
+    function WebsiteNewController($routeParams, WebsiteService, $location) {
         var vm = this;
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
 
         function init() {
-            var websites = WebsiteService.findWebsitesByUser(userId);
+            WebsiteService
+                .findWebsitesByUser(userId)
+                .success(function (sites) {
+                    vm.websites = sites;
+                });
 
-            vm.websites = websites;
             vm.userId = userId;
         }
         init();
@@ -26,13 +29,17 @@
                 vm.error="Website Name required";
                 return;
             }
-            var site = WebsiteService.createWebsite(vm.userId, website);
-            if (site) {
-                vm.message = "Website Added Successfully";
-                init();
-            } else{
-                vm.error = "Unable to add website";
-            }
+            var promise = WebsiteService.createWebsite(vm.userId, website);
+            promise
+                .success(function (site) {
+                    if (site) {
+                        vm.message = "Website Added Successfully";
+                        //init();
+                        $location.url("/user/" + userId + "/website/");
+                    }
+                    else
+                        vm.error = "Unable to add website";
+                });
         }
     }
 })();

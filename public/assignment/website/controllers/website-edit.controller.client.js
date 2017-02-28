@@ -9,11 +9,22 @@
         function init() {
             var userId = $routeParams.uid;
             var websiteId = $routeParams.wid;
-            var websites = WebsiteService.findWebsitesByUser(userId);
 
-            vm.websites = websites;
+            WebsiteService.findWebsitesByUser(userId)
+                .success(function (sites) {
+                    console.log(sites);
+                    vm.websites = sites;
+                });
+
             vm.userId = userId;
-            vm.website = WebsiteService.findWebsiteById(websiteId);
+            WebsiteService
+                .findWebsiteById(websiteId)
+                .success(function (site) {
+                    vm.website =  site;
+                })
+                .error(function (error) {
+                    vm.website = null;
+                });
         }
         init();
 
@@ -23,22 +34,26 @@
 
         // delete method
         function deleteWebsite() {
-            var success = WebsiteService.deleteWebsite(vm.website._id);
-            if (success) {
-                $location.url("/user/"+vm.userId+"/website");
-            } else {
-                vm.error = "Unable to delete the website";
-            }
+            var promise = WebsiteService.deleteWebsite(vm.website._id);
+            promise
+                .success(function (success) {
+                    $location.url("/user/"+vm.userId+"/website");
+                })
+                .error(function (error) {
+                    vm.error = "Unable to delete the website";
+                });
         }
 
         // update website method
         function updateWebsite(website) {
-            var success = WebsiteService.updateWebsite(vm.website._id, vm.website);
-            if (success) {
-                vm.message = "Update Successful"
-            } else {
-                vm.error = "Unable to delete the website";
-            }
+            var promise = WebsiteService.updateWebsite(vm.website._id, vm.website);
+            promise
+                .success(function (success) {
+                    vm.message = "Update Successful";
+                })
+                .error(function (error) {
+                    vm.error = "Unable to update the website";
+                });
         }
     }
 })();

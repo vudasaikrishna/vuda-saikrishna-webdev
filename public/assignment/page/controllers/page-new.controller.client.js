@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("PageNewController", PageNewController);
     
-    function PageNewController($routeParams, PageService) {
+    function PageNewController($routeParams, PageService, $location) {
         // console.log("New Controller");
         var userId = $routeParams.uid;
         var websiteId = $routeParams.wid;
@@ -16,7 +16,11 @@
             vm.websiteId = websiteId;
             vm.userId = userId;
 
-            vm.pages = PageService.findPageByWebsiteId(websiteId);
+            PageService
+                .findPageByWebsiteId(websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                });
         }
         init();
 
@@ -26,13 +30,17 @@
                 vm.error = "Page Name cannot be empty";
                 return;
             }
-            var success = PageService.createPage(websiteId, page);
-            if (success){
-                vm.message = "Added Successfully";
-                init();
-            } else{
-                vm.error = "Unable to add the page";
-            }
+            page.developerId = userId;
+            page.updated = new Date();
+            var promise = PageService.createPage(websiteId, page);
+            promise
+                .success(function (success) {
+                    vm.message = "Added Successfully";
+                    $location.url("/user/" + userId + "/website/"+websiteId+"/page");
+                })
+                .error(function (error) {
+                    vm.error = "Unable to add the page";
+                });
         }
     }
 })();

@@ -35,7 +35,7 @@ module.exports = function (app) {
                 websites[w].name = website.name;
                 websites[w].update = new Date();
                 websites[w].description = website.description;
-                res.json(angular.copy(websites[w]));
+                res.json(websites[w]);
                 return;
             }
         }
@@ -60,7 +60,7 @@ module.exports = function (app) {
         for(var w in websites) {
             if(websiteId == websites[w]._id) {
                 //console.log(websites[w]);
-                res.json(angular.copy(websites[w]));
+                res.json(websites[w]);
                 return;
             }
         }
@@ -69,13 +69,13 @@ module.exports = function (app) {
 
     function findWebsitesByUser(req, res) {
         var userId = req.params.userId;
-
         var sites = [];
         for(var w in websites) {
             if(userId === websites[w].developerId) {
                 sites.push(websites[w]);
             }
         }
+        //console.log(sites);
         res.json(sites);
     }
 };

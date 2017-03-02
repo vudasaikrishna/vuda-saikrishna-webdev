@@ -12,8 +12,11 @@
             vm.websiteId = $routeParams.wid;
             vm.pageId = $routeParams.pid;
 
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-
+            WidgetService
+                .findWidgetsByPageId(vm.pageId)
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                });
         }
         init();
 
@@ -28,9 +31,5 @@
             return $sce.trustAsResourceUrl(baseUrl);
         }
 
-        /*function editWidget(widget) {
-            // var id = WidgetService.createWidget(widgetType, vm.pageId);
-            $location.url('/user/'+vm.userId+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/'+widget._id);
-        }*/
     }
 })();

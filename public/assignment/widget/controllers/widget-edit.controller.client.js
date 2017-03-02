@@ -13,18 +13,31 @@
         vm.wgId = $routeParams.wgid;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            WidgetService
+                .findWidgetsByPageId(vm.pageId)
+                .success(function (widgets) {
+                    vm.widgets = widgets;
+                });
 
-            vm.widget = WidgetService.findWidgetById(vm.wgId);
-            //console.log("Controller");
-            // console.log(vm.widget);
+            WidgetService
+                .findWidgetById(vm.wgId)
+                .success(function (widget) {
+                    //console.log(widget);
+                    vm.widget = widget;
+                    //console.log("Controller");
+                    //console.log(vm.widget);
 
-            // convert width percent string to number for display
-            if (vm.widget.width){
-                // console.log(vm.widget.width);
-                vm.widget.width = parseInt(vm.widget.width.substring(-1)); // trim the percent symbol
-                // console.log(vm.widget.width);
-            }
+                    // convert width percent string to number for display
+                    if (vm.widget.width){
+                        // console.log(vm.widget.width);
+                        vm.widget.width = parseInt(vm.widget.width.substring(-1)); // trim the percent symbol
+                        // console.log(vm.widget.width);
+                    }
+                })
+                .error(function (error) {
+                    vm.widget = null;
+                });
+
         }
         init();
 
@@ -41,29 +54,39 @@
         }
 
         function deleteWidget() {
-            var success = WidgetService.deleteWidget(vm.wgId);
-            if(success){
-                $location.url('/user/'+vm.userId+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget');
-            } else{
-                vm.error = "Unable to delete widget";
-            }
+            var promise = WidgetService.deleteWidget(vm.wgId);
+            promise
+                .success(function (success) {
+                    $location.url('/user/'+vm.userId+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget');
+                })
+                .error(function (error) {
+                    vm.error = "Unable to delete widget";
+                });
         }
 
         function updateWidget(){
             if(vm.widget.widgetType == 'HEADER' && (!vm.widget.text || !vm.widget.size)){
                     vm.error = "Text or Size cannot be empty";
                     return;
-            } else if((vm.widget.widgetType == 'IMAGE' || vm.widget.widgetType == 'YOUTUBE') && !vm.widget.url){
-                vm.error = "URL cannot be empty";
-                return;
+            } else if((vm.widget.widgetType == 'IMAGE' || vm.widget.widgetType == 'YOUTUBE')) {
+                if (!vm.widget.url) {
+                    vm.error = "URL cannot be empty";
+                    return;
+                }
+                else if (!vm.widget.width)
+                    vm.widget.width = 100;
+
             }
-            var success = WidgetService.updateWidget(vm.wgId, vm.widget);
-            if (success){
-                vm.error=null;
-                vm.message = "Updated Successfully";
-            } else{
-                vm.error = "Unable to update the widget";
-            }
+            //console.log(vm.widget);
+            var promise = WidgetService.updateWidget(vm.wgId, vm.widget);
+            promise
+                .success(function (success) {
+                    vm.error=null;
+                    vm.message = "Updated Successfully";
+                })
+                .error(function (error) {
+                    vm.error = "Unable to update the widget";
+                });
         }
     }
 })();

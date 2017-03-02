@@ -13,7 +13,6 @@ module.exports = function (app) {
 
     app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
-    var imageCount = 1000;
     function uploadImage(req, res) {
 
         var widgetId      = req.body.widgetId;
@@ -31,16 +30,16 @@ module.exports = function (app) {
         var destination   = myFile.destination;  // folder where file is saved to
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
-        console.log(originalname);
-        console.log(filename);
-        // myFile.filename = ++imageCount+".jpg";
+        //console.log(originalname);
+        //console.log(filename);
+        //myFile.filename = filename+".jpg";
 
         widget = getWidgetById(widgetId);
         widget.url = '/uploads/'+filename;
-        console.log(widget);
+        //console.log(widget);
 
         var callbackUrl   = "/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId;
-
+        //res.sendStatus(204);
         res.redirect(callbackUrl);
     }
 

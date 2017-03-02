@@ -17,13 +17,27 @@
                     },
                     stop: function (event, ui) {
                         stopIndex = ui.item.index();
-                        console.log([startIndex, stopIndex]);
+                        //console.log([startIndex, stopIndex]);
+                        scope.sortableController.sort(startIndex, stopIndex);
                     }
                 })
                 .disableSelection();
         }
         return {
-            link: linkFunc
+            scope:{},
+            link: linkFunc,
+            controller: sortableController,
+            controllerAs: 'sortableController'
         };
+    }
+
+    function sortableController(WidgetService) {
+        var vm = this;
+        vm.sort = sort;
+
+        function sort(start, end) {
+            console.log([start,end]);
+            WidgetService.sortWidgets(start,end);
+        }
     }
 })();

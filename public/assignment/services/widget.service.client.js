@@ -5,15 +5,25 @@
     
     function WidgetService($http) {
 
+        var globalPageId;
         var api = {
             "findWidgetsByPageId": findWidgetsByPageId,
             "findWidgetById": findWidgetById,
             "createWidget": createWidget,
             "updateWidget": updateWidget,
-            "deleteWidget": deleteWidget
+            "deleteWidget": deleteWidget,
+            "sortWidgets": sortWidgets
         };
         return api;
-        
+
+        function sortWidgets(start, end) {
+            var url = '/api/page/PAGEID/widget?initial=INDEX1&final=INDEX2';
+            url = url
+                .replace('PAGEID', globalPageId)
+                .replace('INDEX1', start)
+                .replace('INDEX2', end);
+            return $http.put(url);
+        }
         function deleteWidget(widgetId) {
             return $http.delete('/api/widget/'+widgetId);
         }
@@ -27,6 +37,7 @@
         }
 
         function findWidgetsByPageId(pageId) {
+            globalPageId = pageId;
             return $http.get('/api/page/'+pageId+'/widget');
         }
 

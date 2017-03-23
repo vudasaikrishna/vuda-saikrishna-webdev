@@ -25,11 +25,11 @@
         function addWidget(type) {
             var widget = {};
             widget.type = type;
-            widget.editing = true;
+            widget.deletable = true;
             //console.log('Adding Widget'+type);
             var promise = WidgetService.createWidget(vm.pageId, widget);
             promise.success(function (widget) {
-                console.log(widget);
+                //console.log(widget);
                 $location.url('/user/'+vm.userId+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/'+widget._id);
             });
         }

@@ -25,7 +25,7 @@
                     //console.log(widget);
                     vm.widget = widget;
                     //console.log("Controller");
-                    console.log(vm.widget);
+                    //console.log(vm.widget);
 
                     // convert width percent string to number for display
                     if (vm.widget.width){
@@ -44,6 +44,7 @@
         //event handlers
         vm.deleteWidget = deleteWidget;
         vm.updateWidget = updateWidget;
+        vm.backButtonHandler = backButtonHandler;
 
         function doYouTrustUrl(url) {
             var baseUrl = "https://www.youtube.com/embed/";
@@ -53,6 +54,13 @@
             return $sce.trustAsResourceUrl(baseUrl);
         }
 
+        function backButtonHandler() {
+            if(vm.widget.deletable){
+                deleteWidget();
+            } else {
+                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+            }
+        }
         function deleteWidget() {
             var promise = WidgetService.deleteWidget(vm.wgId);
             promise
@@ -66,17 +74,20 @@
 
         function updateWidget(){
             if(vm.widget.type == 'HEADING' && (!vm.widget.text || !vm.widget.size)){
-                    vm.error = "Text or Size cannot be empty";
+                    vm.error = "Text or Size can not be empty";
                     return;
             } else if((vm.widget.type == 'IMAGE' || vm.widget.type == 'YOUTUBE')) {
                 if (!vm.widget.url) {
-                    vm.error = "URL cannot be empty";
+                    vm.error = "URL can not be empty";
                     return;
                 }
                 else if (!vm.widget.width)
                     vm.widget.width = 100;
 
+            } else if(vm.widget.type == 'TEXT' && !vm.widget.rows) {
+                vm.error = "Rows can not be empty"
             }
+            vm.widget.deletable = false;
             //console.log(vm.widget);
             var promise = WidgetService.updateWidget(vm.wgId, vm.widget);
             promise

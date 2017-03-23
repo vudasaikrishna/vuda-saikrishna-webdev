@@ -16,6 +16,7 @@
                 .findPageByWebsiteId(websiteId)
                 .success(function (pages) {
                     vm.pages = pages;
+                    console.log(pages)
                 });
         }
         init();

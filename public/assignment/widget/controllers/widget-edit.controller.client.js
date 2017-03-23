@@ -25,7 +25,7 @@
                     //console.log(widget);
                     vm.widget = widget;
                     //console.log("Controller");
-                    //console.log(vm.widget);
+                    console.log(vm.widget);
 
                     // convert width percent string to number for display
                     if (vm.widget.width){
@@ -65,10 +65,10 @@
         }
 
         function updateWidget(){
-            if(vm.widget.widgetType == 'HEADER' && (!vm.widget.text || !vm.widget.size)){
+            if(vm.widget.type == 'HEADING' && (!vm.widget.text || !vm.widget.size)){
                     vm.error = "Text or Size cannot be empty";
                     return;
-            } else if((vm.widget.widgetType == 'IMAGE' || vm.widget.widgetType == 'YOUTUBE')) {
+            } else if((vm.widget.type == 'IMAGE' || vm.widget.type == 'YOUTUBE')) {
                 if (!vm.widget.url) {
                     vm.error = "URL cannot be empty";
                     return;

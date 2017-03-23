@@ -8,6 +8,7 @@
 
         function init() {
             vm.doYouTrustUrl = doYouTrustUrl;
+            vm.doYouTrustHTML = doYouTrustHTML;
             vm.userId = $routeParams.uid;
             vm.websiteId = $routeParams.wid;
             vm.pageId = $routeParams.pid;
@@ -16,6 +17,7 @@
                 .findWidgetsByPageId(vm.pageId)
                 .success(function (widgets) {
                     vm.widgets = widgets;
+                    console.log(widgets);
                 });
         }
         init();
@@ -31,5 +33,8 @@
             return $sce.trustAsResourceUrl(baseUrl);
         }
 
+        function doYouTrustHTML(text) {
+            return $sce.trustAsHtml(text);
+        }
     }
 })();

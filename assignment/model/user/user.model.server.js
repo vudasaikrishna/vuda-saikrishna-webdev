@@ -1,6 +1,6 @@
 module.exports = function (model) {
 
-    console.log("File included");
+    //console.log("File included");
     var q = require('q');
     var mongoose = require('mongoose');
 
@@ -13,10 +13,44 @@ module.exports = function (model) {
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        addWebsite: addWebsite,
+        removeWebsite: removeWebsite
     };
     return api;
 
+    function removeWebsite(websiteId) {
+        var deferred = q.defer();
+        userModel
+            .find({websites: websiteId}, function (err, users) {
+                if(err){
+                    deferred.abort(err);
+                } else {
+                    //console.log(users);
+                    for(var u in users) {
+                        var ind = users[u].websites.indexOf(websiteId);
+                        users[u].websites.splice(ind,1);
+                        users[u].save();
+                    }
+                    deferred.resolve(users);
+                }
+            });
+        return deferred.promise;
+    }
+    function addWebsite(userId, websiteId) {
+        var deferred = q.defer();
+        userModel
+            .findById(userId, function (err, user) {
+                if(err) {
+                    deferred.reject(err);
+                } else {
+                    user.websites.push(websiteId);
+                    user.save();
+                    deferred.resolve(user);
+                }
+            });
+        return deferred.promise;
+    }
     function deleteUser(userId) {
         var deferred = q.defer();
         userModel
@@ -32,9 +66,9 @@ module.exports = function (model) {
     function updateUser(userId, newuser) {
         var deferred = q.defer();
         userModel
-            .update({_id: userId, $set:newuser}, function (err, status) {
+            .update({_id: userId}, {$set:newuser}, function (err, status) {
                 if(err){
-                    deferred.abort(err);
+                    deferred.reject(err);
                 } else {
                     deferred.resolve(status);
                 }
@@ -47,7 +81,7 @@ module.exports = function (model) {
             .findOne({username: username, password: password},
                 function (err, user) {
                 if(err){
-                    deferred.abort(err);
+                    deferred.reject(err);
                 } else {
                     deferred.resolve(user);
                 }
@@ -58,9 +92,9 @@ module.exports = function (model) {
         var deferred = q.defer();
         userModel
             .findOne({username: username}, function (err, user) {
-            console.log([err,user]);
+            //console.log([err,user]);
                 if(err){
-                    deferred.abort(err);
+                    deferred.reject(err);
                 } else {
                     deferred.resolve(user);
                 }
@@ -73,22 +107,23 @@ module.exports = function (model) {
         userModel
             .findById(userId, function (err, user) {
                 if(err)
-                    deferred.abort(err);
-                else
+                    deferred.reject(err);
+                else {
                     deferred.resolve(user);
+                }
             });
         return deferred.promise;
     }
 
     function createUser(user) {
-        console.log("model");
+        //console.log("model");
         var deferred = q.defer();
         userModel
-            .create(user, function (err, doc) {
+            .create(user, function (err, user) {
             if (err) {
-                deferred.abort(err);
+                deferred.reject(err);
             } else{
-                deferred.resolve();
+                deferred.resolve(user);
             }
         });
         return deferred.promise;

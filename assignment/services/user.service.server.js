@@ -1,17 +1,20 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
 
-    var userModel = require('./../model/user/user.model.server')();
+    //var userModel = require('./../model/user/user.model.server')();
+
+    var userModel = model.userModel;
 
     function createUser(req, res) {
         //console.log(req.body);
         userModel
             .createUser(req.body)
             .then(function (user) {
+                //console.log(user);
                 res.json(user);
             }, function (err) {
                 res.sendStatus(500).send(err);
@@ -40,7 +43,7 @@ module.exports = function (app) {
     function updateUser(req, res) {
         var userId = req.params.userId;
         var newUser = req.body;
-        console.log(newUser);
+        //console.log(newUser);
         userModel
             .updateUser(userId,newUser)
             .then(function (status) {
@@ -65,7 +68,10 @@ module.exports = function (app) {
         userModel
             .findUserById(userId)
             .then(function (user) {
-                res.json(user);
+                if (user)
+                    res.json(user);
+                else
+                    res.sendStatus(500);
             }, function (err) {
                 res.sendStatus(500).send(err);
             });
@@ -90,7 +96,10 @@ module.exports = function (app) {
         userModel
             .findUserByUsername(req.query.username)
             .then(function (user) {
-                res.json(user);
+                if (user)
+                    res.json(user);
+                else
+                    res.sendStatus(500);
             }, function (err) {
                 res.sendStatus(500).send(err);
             });
@@ -112,7 +121,10 @@ module.exports = function (app) {
         userModel
             .findUserByCredentials(username, password)
             .then(function (user) {
-                res.json(user);
+                if (user)
+                    res.json(user);
+                else
+                    res.sendStatus(500);
             }, function (err) {
                 res.sendStatus(500).send(err);
             });

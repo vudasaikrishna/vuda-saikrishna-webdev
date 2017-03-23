@@ -37,7 +37,9 @@
 
         function sort(start, end) {
             console.log([start,end]);
-            WidgetService.sortWidgets(start,end);
+            WidgetService.sortWidgets(start,end).then(function(status){
+                console.log(status);
+            });
         }
     }
 })();

@@ -85,7 +85,11 @@
                     vm.widget.width = 100;
 
             } else if(vm.widget.type == 'TEXT' && !vm.widget.rows) {
-                vm.error = "Rows can not be empty"
+                vm.error = "Rows can not be empty";
+                return;
+            } else if (vm.widget.type == 'HTML' && vm.widget.text.trim() == "") {
+                vm.error = "Field can not be empty";
+                return;
             }
             vm.widget.deletable = false;
             //console.log(vm.widget);

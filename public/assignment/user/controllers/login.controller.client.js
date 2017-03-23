@@ -30,7 +30,10 @@
                 } else {
                     vm.error = "User not found";
                 }
-            });
+            })
+                .error(function (err) {
+                    vm.error = "User not found";
+                });
         }
     }
 })();

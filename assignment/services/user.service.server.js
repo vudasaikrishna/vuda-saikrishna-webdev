@@ -121,10 +121,7 @@ module.exports = function (app, model) {
         userModel
             .findUserByCredentials(username, password)
             .then(function (user) {
-                if (user)
-                    res.json(user);
-                else
-                    res.sendStatus(500);
+                res.json(user);
             }, function (err) {
                 res.sendStatus(500).send(err);
             });

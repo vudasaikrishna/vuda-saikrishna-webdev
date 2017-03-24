@@ -70,10 +70,15 @@
                 controller: "WidgetEditController",
                 controllerAs: "model"
             })
+            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/flickr", {
+                templateUrl: "widget/views/widget-flickr-search.view.client.html",
+                controller: "FlickrImageSearchController",
+                controllerAs: "model"
+            })
             /*.otherwise({
-                templateUrl: "user/views/login.view.client.html"
-            })*/
-
+                redirectTo: "/login"
+            });
+*/
         // $locationProvider.html5Mode(true);
     }
 })();

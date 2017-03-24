@@ -51,8 +51,8 @@
                         {{page.name}}
                     </a>
                 </div>
-                <div class="col-xs-3 hidden-xs small"><em>{{page.lastUpdated | date}}</em></div>
-                <div class="col-xs-2 hidden-xs small"><em>{{page._website._user}}</em></div>
+                <div class="col-xs-3 hidden-xs small"><em>{{page.lastUpdated | date:'MMM dd, yyyy. HH:mm:ss'}}</em></div>
+                <div class="col-xs-2 hidden-xs small"><em>{{page._website._user.username}}</em></div>
                 <div class="col-sm-1 col-xs-6">
                     <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}" class="pull-right">
                         <span class="glyphicon glyphicon-cog"></span>

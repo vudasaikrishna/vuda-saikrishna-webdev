@@ -22,14 +22,14 @@ module.exports = function () {
         var deferred = q.defer();
 
         pageModel
-            .find({_id: pageId}, function (err, page) {
+            .findOne({_id: pageId}, function (err, page) {
                 if(err){
                     deferred.abort(err);
                 } else {
                     //console.log(page);
-                    page[0].widgets.splice(end, 0, page[0].widgets.splice(start,1)[0]);
-                    page[0].markModified('widgets');
-                    page[0].save();
+                    page.widgets.splice(end, 0, page.widgets.splice(start,1)[0]);
+                    page.markModified('widgets');
+                    page.save();
                     //console.log(page);
                     deferred.resolve(page);
                 }
@@ -114,8 +114,8 @@ module.exports = function () {
         var deferred = q.defer();
         pageModel
             .find({_website: websiteId})
-            .populate('_website', '_user')
-            .populate('_user', 'username')
+            .populate({path:'_website', select:'_user',
+                populate: {path:'_user', select:'username'}})
             .exec(function (err, pages) {
                 if(err){
                     deferred.reject(err);

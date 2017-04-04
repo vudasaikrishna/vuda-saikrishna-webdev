@@ -14,7 +14,7 @@
         init();
 
         function login(user) {
-            if(user==null) {
+            if(user.username==null) {
                 vm.error = "Username required"
                 return;
             }

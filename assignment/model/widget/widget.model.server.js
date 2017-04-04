@@ -59,6 +59,8 @@ module.exports = function () {
             });
         return deferred.promise;
     }
+
+    // jga
     function findAllWidgetsForPage(pageId) {
         var deferred = q.defer();
         widgetModel

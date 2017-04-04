@@ -139,14 +139,19 @@ module.exports = function (app, model) {
 
     function findWidgetsByPageId(req, res) {
         var pageId = req.params.pageId;
-        widgetModel
-            .findAllWidgetsForPage(pageId)
-            .then(function (widgets) {
-                //console.log(widgets);
-                res.json(widgets);
-            }, function (err) {
-                res.sendStatus(500).send(err);
+        pageModel
+            .findFullPageById(pageId)
+            .then(function (page) {
+                res.json(page.widgets);
             });
+        // widgetModel
+        //     .findAllWidgetsForPage(pageId)
+        //     .then(function (widgets) {
+        //         //console.log(widgets);
+        //         res.json(widgets);
+        //     }, function (err) {
+        //         res.sendStatus(500).send(err);
+        //     });
         /*var wdgs = [];
         for(w in widgets){
             if (widgets[w].pageId == pageId && !widgets[w].editing)

@@ -14,7 +14,8 @@ module.exports = function () {
         deletePage: deletePage,
         addWidget: addWidget,
         removeWidget: removeWidget,
-        reorderWidget: reorderWidget
+        reorderWidget: reorderWidget,
+        findFullPageById: findFullPageById
     };
     return api;
 
@@ -26,12 +27,14 @@ module.exports = function () {
                 if(err){
                     deferred.abort(err);
                 } else {
-                    //console.log(page);
+                    console.log(page.widgets);
                     page.widgets.splice(end, 0, page.widgets.splice(start,1)[0]);
                     page.markModified('widgets');
-                    page.save();
+                    page.save(function (err, doc) {
+                        console.log(doc.widgets);
+                        deferred.resolve(page);
+                    });
                     //console.log(page);
-                    deferred.resolve(page);
                 }
             });
         return deferred.promise;
@@ -100,6 +103,20 @@ module.exports = function () {
             .findById(pageId)
             .populate('_website', '_user')
             .populate('_website._user', 'username')
+            .exec(function (err, page) {
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(page);
+                }
+            });
+        return deferred.promise;
+    }
+    function findFullPageById(pageId) {
+        var deferred = q.defer();
+        pageModel
+            .findById(pageId)
+            .populate('widgets')
             .exec(function (err, page) {
                 if(err){
                     deferred.reject(err);

@@ -14,7 +14,7 @@
                     handle: ".glyphicon-align-justify",
                     start: function (event, ui) {
                         startIndex = ui.item.index();
-                        ui.item(index)
+                        // ui.item(index)
                     },
                     stop: function (event, ui) {
                         stopIndex = ui.item.index();
